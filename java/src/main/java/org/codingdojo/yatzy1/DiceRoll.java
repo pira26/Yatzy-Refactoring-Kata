@@ -15,6 +15,10 @@ public class DiceRoll {
     private final int ZERO = 0;
     private final int YATZY = 50;
     private final int PAIR = 2;
+    private final List<Integer> SMALL_STRAIGHT_LIST = of(1, 2, 3, 4, 5);
+    private final int SMALL_STRAIGHT = 15;
+    private final List<Integer> LARGE_STRAIGHT_LIST = of(2, 3, 4, 5, 6);
+    private final int LARGE_STRAIGHT = 20;
 
     public DiceRoll(int d1, int d2, int d3, int d4, int d5) {
         this.DICES = of(d1, d2, d3, d4, d5);
@@ -101,5 +105,24 @@ public class DiceRoll {
 
     public int fourOfAKind() {
         return getNOfAKind(4);
+    }
+
+    public int smallStraight() {
+        if (sortDiceRolls().equals(SMALL_STRAIGHT_LIST)) {
+            return SMALL_STRAIGHT;
+        }
+
+        return ZERO;
+    }
+
+    private List<Integer> sortDiceRolls() {
+        return DICES.stream().sorted().toList();
+    }
+
+    public int largeStraight() {
+        if (sortDiceRolls().equals(LARGE_STRAIGHT_LIST)) {
+            return LARGE_STRAIGHT;
+        }
+        return ZERO;
     }
 }

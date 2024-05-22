@@ -1,8 +1,6 @@
 package org.codingdojo.yatzy1;
 
 public class Yatzy1 {
-    protected static int[] dice;
-
     public static int chance(DiceRoll diceRoll) {
         return diceRoll.sum();
     }
@@ -51,31 +49,12 @@ public class Yatzy1 {
         return diceRoll.fourOfAKind();
     }
 
-
-    public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = new int[6];
-        tallies[d1 - 1] += 1;
-        tallies[d2 - 1] += 1;
-        tallies[d3 - 1] += 1;
-        tallies[d4 - 1] += 1;
-        tallies[d5 - 1] += 1;
-        if (tallies[0] == 1 && tallies[1] == 1 && tallies[2] == 1 && tallies[3] == 1 && tallies[4] == 1) {
-            return 15;
-        }
-        return 0;
+    public static int smallStraight(DiceRoll diceRoll) {
+        return diceRoll.smallStraight();
     }
 
-    public static int largeStraight(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = new int[6];
-        tallies[d1 - 1] += 1;
-        tallies[d2 - 1] += 1;
-        tallies[d3 - 1] += 1;
-        tallies[d4 - 1] += 1;
-        tallies[d5 - 1] += 1;
-        if (tallies[1] == 1 && tallies[2] == 1 && tallies[3] == 1 && tallies[4] == 1 && tallies[5] == 1) {
-            return 20;
-        }
-        return 0;
+    public static int largeStraight(DiceRoll diceRoll) {
+        return diceRoll.largeStraight();
     }
 
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {

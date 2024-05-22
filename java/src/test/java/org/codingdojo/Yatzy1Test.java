@@ -1,7 +1,6 @@
 package org.codingdojo;
 
 import org.codingdojo.yatzy1.DiceRoll;
-import org.codingdojo.yatzy1.Yatzy1;
 import org.codingdojo.yatzy1.Yatzy1Category;
 import org.junit.jupiter.api.Test;
 
@@ -107,17 +106,17 @@ public class Yatzy1Test {
 
     @Test
     public void should_assert_small_straight() {
-        assertEquals(15, Yatzy1.smallStraight(1, 2, 3, 4, 5));
-        assertEquals(15, Yatzy1.smallStraight(2, 3, 4, 5, 1));
-        assertEquals(0, Yatzy1.smallStraight(1, 2, 2, 4, 5));
-        assertEquals(0, Yatzy1.smallStraight(2, 3, 4, 5, 6));
+        assertEquals(15, Yatzy1Category.SMALL_STRAIGHT.score(new DiceRoll(1, 2, 3, 4, 5)));
+        assertEquals(15, Yatzy1Category.SMALL_STRAIGHT.score(new DiceRoll(2, 3, 4, 5, 1)));
+        assertEquals(0, Yatzy1Category.SMALL_STRAIGHT.score(new DiceRoll(1, 2, 2, 4, 5)));
+        assertEquals(0, Yatzy1Category.SMALL_STRAIGHT.score(new DiceRoll(2, 3, 4, 5, 6)));
     }
 
     @Test
     public void should_assert_large_straight() {
-        assertEquals(20, Yatzy1.largeStraight(6, 2, 3, 4, 5));
-        assertEquals(20, Yatzy1.largeStraight(2, 3, 4, 5, 6));
-        assertEquals(0, Yatzy1.largeStraight(1, 2, 3, 4, 5));
+        assertEquals(20, Yatzy1Category.LARGE_STRAIGHT.score(new DiceRoll(6, 2, 3, 4, 5)));
+        assertEquals(20, Yatzy1Category.LARGE_STRAIGHT.score(new DiceRoll(2, 3, 4, 5, 6)));
+        assertEquals(0, Yatzy1Category.LARGE_STRAIGHT.score(new DiceRoll(1, 2, 3, 4, 5)));
     }
 
     @Test
