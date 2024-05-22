@@ -21,9 +21,9 @@ public class Yatzy1Test {
 
     @Test
     public void should_assert_yatzy() {
-        assertEquals(50, Yatzy1.yatzy(4, 4, 4, 4, 4));
-        assertEquals(50, Yatzy1.yatzy(6, 6, 6, 6, 6));
-        assertEquals(0, Yatzy1.yatzy(6, 6, 6, 6, 3));
+        assertEquals(50, Yatzy1Category.YATZY.score(new DiceRoll(4, 4, 4, 4, 4)));
+        assertEquals(50, Yatzy1Category.YATZY.score(new DiceRoll(6, 6, 6, 6, 6)));
+        assertEquals(0, Yatzy1Category.YATZY.score(new DiceRoll(6, 6, 6, 6, 3)));
     }
 
     @Test

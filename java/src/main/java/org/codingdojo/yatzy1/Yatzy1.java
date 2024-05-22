@@ -7,21 +7,9 @@ public class Yatzy1 {
         return diceRoll.sum();
     }
 
-    public static int yatzy(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = new int[6];
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = d5;
-        for (int die : dice) {
-            counts[die - 1]++;
-        }
-        for (int i = 0; i < 6; i++) {
-            if (counts[i] == 5) {
-                return 50;
-            }
+    public static int yatzy(DiceRoll diceRoll) {
+        if (diceRoll.isYatzy()) {
+            return 50;
         }
         return 0;
     }
