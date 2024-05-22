@@ -76,6 +76,7 @@ public class Yatzy1Test {
         assertEquals(10, Yatzy1Category.ONE_PAIR.score(new DiceRoll(5, 3, 3, 3, 5)));
         assertEquals(12, Yatzy1Category.ONE_PAIR.score(new DiceRoll(5, 3, 6, 6, 5)));
         assertEquals(0, Yatzy1Category.ONE_PAIR.score(new DiceRoll(1, 2, 3, 6, 5)));
+        assertEquals(12, Yatzy1Category.ONE_PAIR.score(new DiceRoll(1, 2, 6, 6, 6)));
     }
 
     @Test
@@ -121,8 +122,10 @@ public class Yatzy1Test {
 
     @Test
     public void should_assert_full_house() {
-        assertEquals(18, Yatzy1.fullHouse(6, 2, 2, 2, 6));
-        assertEquals(0, Yatzy1.fullHouse(2, 3, 4, 5, 6));
-        assertEquals(0, Yatzy1.fullHouse(6, 6, 6, 6, 6));
+        assertEquals(18, Yatzy1Category.FULL_HOUSE.score(new DiceRoll(6, 2, 2, 2, 6)));
+        assertEquals(0, Yatzy1Category.FULL_HOUSE.score(new DiceRoll(2, 3, 4, 5, 6)));
+        assertEquals(0, Yatzy1Category.FULL_HOUSE.score(new DiceRoll(6, 6, 6, 6, 6)));
+        assertEquals(0, Yatzy1Category.FULL_HOUSE.score(new DiceRoll(6, 6, 1, 2, 3)));
+        assertEquals(0, Yatzy1Category.FULL_HOUSE.score(new DiceRoll(6, 6, 6, 2, 3)));
     }
 }

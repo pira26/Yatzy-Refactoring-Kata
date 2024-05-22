@@ -2,6 +2,7 @@ package org.codingdojo.yatzy1;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static java.util.Collections.reverseOrder;
@@ -11,7 +12,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.reducing;
 
 public class DiceRoll {
-    private final List<Integer> DICES;
+    private final List<Integer> DICE;
     private final int ZERO = 0;
     private final int YATZY = 50;
     private final int PAIR = 2;
@@ -21,19 +22,11 @@ public class DiceRoll {
     private final int LARGE_STRAIGHT = 20;
 
     public DiceRoll(int d1, int d2, int d3, int d4, int d5) {
-        this.DICES = of(d1, d2, d3, d4, d5);
+        this.DICE = of(d1, d2, d3, d4, d5);
     }
 
     public int sum() {
-        return DICES.stream().mapToInt(Integer::intValue).sum();
-    }
-
-    public Map<Integer, Integer> count() {
-        return DICES.stream().collect(groupingBy(identity(), reducing(0, dice -> 1, Integer::sum)));
-    }
-
-    public boolean isYatzy() {
-        return count().values().stream().allMatch(diceCount -> diceCount == 5);
+        return DICE.stream().mapToInt(Integer::intValue).sum();
     }
 
     public int yatzy() {
@@ -43,46 +36,34 @@ public class DiceRoll {
         return ZERO;
     }
 
-    private int getValue(int key) {
-        return count().getOrDefault(key, 0);
-    }
-
     public int ones() {
-        return getValue(1);
+        return getDiceCountValue(1);
     }
 
     public int twos() {
-        return getValue(2) * 2;
+        return getDiceCountValue(2) * 2;
     }
 
     public int threes() {
-        return getValue(3) * 3;
+        return getDiceCountValue(3) * 3;
     }
 
     public int fours() {
-        return getValue(4) * 4;
+        return getDiceCountValue(4) * 4;
     }
 
     public int fives() {
-        return getValue(5) * 5;
+        return getDiceCountValue(5) * 5;
     }
 
     public int sixes() {
-        return getValue(6) * 6;
-    }
-
-    private Stream<Integer> getDiceCountStream(int number) {
-        return count().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
-    }
-
-    private List<Integer> retrievePairs() {
-        return getDiceCountStream(PAIR).sorted(reverseOrder()).toList();
+        return getDiceCountValue(6) * 6;
     }
 
     public int onePair() {
         List<Integer> pair = retrievePairs();
         if (!pair.isEmpty()) {
-            return pair.get(0) * 2;
+            return pair.getFirst() * 2;
         }
         return ZERO;
     }
@@ -95,34 +76,69 @@ public class DiceRoll {
         return ZERO;
     }
 
-    private int getNOfAKind(int number) {
-        return getDiceCountStream(number).findFirst().map(diceCount -> diceCount * number).orElse(ZERO);
-    }
-
     public int threeOfAKind() {
-        return getNOfAKind(3);
+        return getNOfAKind(3) * 3;
     }
 
     public int fourOfAKind() {
-        return getNOfAKind(4);
+        return getNOfAKind(4) * 4;
     }
 
     public int smallStraight() {
-        if (sortDiceRolls().equals(SMALL_STRAIGHT_LIST)) {
+        if (Objects.equals(SMALL_STRAIGHT_LIST, sortDice())) {
             return SMALL_STRAIGHT;
         }
 
         return ZERO;
     }
 
-    private List<Integer> sortDiceRolls() {
-        return DICES.stream().sorted().toList();
-    }
-
     public int largeStraight() {
-        if (sortDiceRolls().equals(LARGE_STRAIGHT_LIST)) {
+        if (Objects.equals(LARGE_STRAIGHT_LIST, sortDice())) {
             return LARGE_STRAIGHT;
         }
         return ZERO;
+    }
+
+    public int fullHouse() {
+        int threeOfAKindValue = getNOfAKind(3);
+        boolean isNotYatzy = !isYatzy();
+        boolean hasAPair = !retrievePairs().isEmpty();
+        boolean hasAThreeOfAKind = threeOfAKindValue != 0;
+        if (hasAPair && hasAThreeOfAKind && isNotYatzy) {
+            boolean isPairAndThreeOfAKindDifferent = !Objects.equals(retrievePairs().get(0), threeOfAKindValue);
+            if (isPairAndThreeOfAKindDifferent) {
+                return sum();
+            }
+            return ZERO;
+        }
+        return ZERO;
+    }
+
+    private Map<Integer, Integer> diceCount() {
+        return DICE.stream().collect(groupingBy(identity(), reducing(0, dice -> 1, Integer::sum)));
+    }
+
+    private boolean isYatzy() {
+        return diceCount().values().stream().allMatch(count -> count == 5);
+    }
+
+    private int getDiceCountValue(int key) {
+        return diceCount().getOrDefault(key, 0);
+    }
+
+    private Stream<Integer> getDiceCountStream(int number) {
+        return diceCount().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
+    }
+
+    private List<Integer> retrievePairs() {
+        return getDiceCountStream(PAIR).sorted(reverseOrder()).toList();
+    }
+
+    private int getNOfAKind(int number) {
+        return getDiceCountStream(number).findFirst().orElse(ZERO);
+    }
+
+    private List<Integer> sortDice() {
+        return DICE.stream().sorted().toList();
     }
 }

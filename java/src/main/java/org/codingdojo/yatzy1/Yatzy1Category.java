@@ -17,6 +17,7 @@ public enum Yatzy1Category {
     FOUR_OF_A_KIND(Yatzy1::fourOfAKind),
     SMALL_STRAIGHT(Yatzy1::smallStraight),
     LARGE_STRAIGHT(Yatzy1::largeStraight),
+    FULL_HOUSE(Yatzy1::fullHouse)
     ;
 
     private final Function<DiceRoll, Integer> scoringFunction;
