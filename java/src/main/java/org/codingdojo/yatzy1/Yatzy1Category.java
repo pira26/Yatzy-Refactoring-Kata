@@ -13,6 +13,8 @@ public enum Yatzy1Category {
     SIXES(Yatzy1::sixes),
     ONE_PAIR(Yatzy1::onePair),
     TWO_PAIR(Yatzy1::twoPair),
+    THREE_OF_A_KIND(Yatzy1::threeOfAKind),
+    FOUR_OF_A_KIND(Yatzy1::fourOfAKind),
     ;
 
     private final Function<DiceRoll, Integer> scoringFunction;

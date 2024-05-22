@@ -2,6 +2,7 @@ package org.codingdojo.yatzy1;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static java.util.Collections.reverseOrder;
 import static java.util.List.of;
@@ -66,13 +67,12 @@ public class DiceRoll {
         return getValue(6) * 6;
     }
 
+    private Stream<Integer> getDiceCountStream(int number) {
+        return count().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
+    }
+
     private List<Integer> retrievePairs() {
-        return count()
-            .entrySet().stream()
-            .filter(entry -> entry.getValue() >= PAIR)
-            .map(Map.Entry::getKey)
-            .sorted(reverseOrder())
-            .toList();
+        return getDiceCountStream(PAIR).sorted(reverseOrder()).toList();
     }
 
     public int onePair() {
@@ -89,5 +89,17 @@ public class DiceRoll {
             return pairs.stream().mapToInt(pair -> pair * 2).sum();
         }
         return ZERO;
+    }
+
+    private int getNOfAKind(int number) {
+        return getDiceCountStream(number).findFirst().map(diceCount -> diceCount * number).orElse(ZERO);
+    }
+
+    public int threeOfAKind() {
+        return getNOfAKind(3);
+    }
+
+    public int fourOfAKind() {
+        return getNOfAKind(4);
     }
 }

@@ -90,19 +90,19 @@ public class Yatzy1Test {
 
     @Test
     public void should_assert_three_of_a_kind() {
-        assertEquals(9, Yatzy1.threeOfAKind(3, 3, 3, 4, 5));
-        assertEquals(15, Yatzy1.threeOfAKind(5, 3, 5, 4, 5));
-        assertEquals(9, Yatzy1.threeOfAKind(3, 3, 3, 3, 5));
-        assertEquals(9, Yatzy1.threeOfAKind(3, 3, 3, 3, 3));
-        assertEquals(0, Yatzy1.threeOfAKind(1, 1, 2, 3, 3));
+        assertEquals(9, Yatzy1Category.THREE_OF_A_KIND.score(new DiceRoll(3, 3, 3, 4, 5)));
+        assertEquals(15, Yatzy1Category.THREE_OF_A_KIND.score(new DiceRoll(5, 3, 5, 4, 5)));
+        assertEquals(9, Yatzy1Category.THREE_OF_A_KIND.score(new DiceRoll(3, 3, 3, 3, 5)));
+        assertEquals(9, Yatzy1Category.THREE_OF_A_KIND.score(new DiceRoll(3, 3, 3, 3, 3)));
+        assertEquals(0, Yatzy1Category.THREE_OF_A_KIND.score(new DiceRoll(1, 1, 2, 3, 3)));
     }
 
     @Test
     public void should_assert_four_of_a_kind() {
-        assertEquals(0, Yatzy1.fourOfAKind(3, 1, 3, 3, 5));
-        assertEquals(12, Yatzy1.fourOfAKind(3, 3, 3, 3, 5));
-        assertEquals(20, Yatzy1.fourOfAKind(5, 5, 5, 4, 5));
-        assertEquals(20, Yatzy1.fourOfAKind(5, 5, 5, 5, 5));
+        assertEquals(0, Yatzy1Category.FOUR_OF_A_KIND.score(new DiceRoll(3, 1, 3, 3, 5)));
+        assertEquals(12, Yatzy1Category.FOUR_OF_A_KIND.score(new DiceRoll(3, 3, 3, 3, 5)));
+        assertEquals(20, Yatzy1Category.FOUR_OF_A_KIND.score(new DiceRoll(5, 5, 5, 4, 5)));
+        assertEquals(20, Yatzy1Category.FOUR_OF_A_KIND.score(new DiceRoll(5, 5, 5, 5, 5)));
     }
 
     @Test
@@ -124,5 +124,6 @@ public class Yatzy1Test {
     public void should_assert_full_house() {
         assertEquals(18, Yatzy1.fullHouse(6, 2, 2, 2, 6));
         assertEquals(0, Yatzy1.fullHouse(2, 3, 4, 5, 6));
+        assertEquals(0, Yatzy1.fullHouse(6, 6, 6, 6, 6));
     }
 }
