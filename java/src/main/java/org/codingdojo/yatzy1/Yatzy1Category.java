@@ -4,7 +4,13 @@ import java.util.function.Function;
 
 public enum Yatzy1Category {
     CHANCE(Yatzy1::chance),
-    YATZY(Yatzy1::yatzy)
+    YATZY(Yatzy1::yatzy),
+    ONES(Yatzy1::ones),
+    TWOS(Yatzy1::twos),
+    THREES(Yatzy1::threes),
+    FOURS(Yatzy1::fours),
+    FIVES(Yatzy1::fives),
+    SIXES(Yatzy1::sixes),
     ;
 
     private final Function<DiceRoll, Integer> scoringFunction;

@@ -8,120 +8,31 @@ public class Yatzy1 {
     }
 
     public static int yatzy(DiceRoll diceRoll) {
-        if (diceRoll.isYatzy()) {
-            return 50;
-        }
-        return 0;
+        return diceRoll.yatzy();
     }
 
-    public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        int sum = 0;
-        if (d1 == 1) {
-            sum++;
-        }
-        if (d2 == 1) {
-            sum++;
-        }
-        if (d3 == 1) {
-            sum++;
-        }
-        if (d4 == 1) {
-            sum++;
-        }
-        if (d5 == 1) {
-            sum++;
-        }
-
-        return sum;
+    public static int ones(DiceRoll diceRoll) {
+        return diceRoll.ones();
     }
 
-    public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        int sum = 0;
-        if (d1 == 2) {
-            sum += 2;
-        }
-        if (d2 == 2) {
-            sum += 2;
-        }
-        if (d3 == 2) {
-            sum += 2;
-        }
-        if (d4 == 2) {
-            sum += 2;
-        }
-        if (d5 == 2) {
-            sum += 2;
-        }
-        return sum;
+    public static int twos(DiceRoll diceRoll) {
+        return diceRoll.twos();
     }
 
-    public static int threes(int d1, int d2, int d3, int d4, int d5) {
-        int s = 0;
-        if (d1 == 3) {
-            s += 3;
-        }
-        if (d2 == 3) {
-            s += 3;
-        }
-        if (d3 == 3) {
-            s += 3;
-        }
-        if (d4 == 3) {
-            s += 3;
-        }
-        if (d5 == 3) {
-            s += 3;
-        }
-        return s;
+    public static int threes(DiceRoll diceRoll) {
+        return diceRoll.threes();
     }
 
-
-    public static int fours(int d1, int d2, int d3, int d4, int d5) {
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = d5;
-        int sum = 0;
-        for (int at = 0; at < 5; at++) {
-            if (dice[at] == 4) {
-                sum += 4;
-            }
-        }
-        return sum;
+    public static int fours(DiceRoll diceRoll) {
+        return diceRoll.fours();
     }
 
-    public static int fives(int d1, int d2, int d3, int d4, int d5) {
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = d5;
-        int s = 0;
-        for (int die : dice) {
-            if (die == 5) {
-                s = s + 5;
-            }
-        }
-        return s;
+    public static int fives(DiceRoll diceRoll) {
+        return diceRoll.fives();
     }
 
-    public static int sixes(int d1, int d2, int d3, int d4, int d5) {
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = d5;
-        int sum = 0;
-        for (int die : dice) {
-            if (die == 6) {
-                sum = sum + 6;
-            }
-        }
-        return sum;
+    public static int sixes(DiceRoll diceRoll) {
+        return diceRoll.sixes();
     }
 
     public static int onePair(int d1, int d2, int d3, int d4, int d5) {

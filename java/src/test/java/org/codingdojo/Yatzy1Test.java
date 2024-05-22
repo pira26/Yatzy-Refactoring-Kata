@@ -28,47 +28,47 @@ public class Yatzy1Test {
 
     @Test
     public void should_assert_ones() {
-        assertEquals(1, Yatzy1.ones(1, 2, 3, 4, 5));
-        assertEquals(2, Yatzy1.ones(1, 2, 1, 4, 5));
-        assertEquals(0, Yatzy1.ones(6, 2, 2, 4, 5));
-        assertEquals(4, Yatzy1.ones(1, 2, 1, 1, 1));
+        assertEquals(1, Yatzy1Category.ONES.score(new DiceRoll(1, 2, 3, 4, 5)));
+        assertEquals(2, Yatzy1Category.ONES.score(new DiceRoll(1, 2, 1, 4, 5)));
+        assertEquals(0, Yatzy1Category.ONES.score(new DiceRoll(6, 2, 2, 4, 5)));
+        assertEquals(4, Yatzy1Category.ONES.score(new DiceRoll(1, 2, 1, 1, 1)));
     }
 
     @Test
     public void should_assert_twos() {
-        assertEquals(4, Yatzy1.twos(1, 2, 3, 2, 6));
-        assertEquals(10, Yatzy1.twos(2, 2, 2, 2, 2));
-        assertEquals(0, Yatzy1.twos(4, 5, 3, 1, 6));
+        assertEquals(4, Yatzy1Category.TWOS.score(new DiceRoll(1, 2, 3, 2, 6)));
+        assertEquals(10, Yatzy1Category.TWOS.score(new DiceRoll(2, 2, 2, 2, 2)));
+        assertEquals(0, Yatzy1Category.TWOS.score(new DiceRoll(4, 5, 3, 1, 6)));
     }
 
     @Test
     public void should_assert_threes() {
-        assertEquals(6, Yatzy1.threes(1, 2, 3, 2, 3));
-        assertEquals(12, Yatzy1.threes(2, 3, 3, 3, 3));
-        assertEquals(0, Yatzy1.threes(2, 1, 4, 6, 5));
+        assertEquals(6, Yatzy1Category.THREES.score(new DiceRoll(1, 2, 3, 2, 3)));
+        assertEquals(12, Yatzy1Category.THREES.score(new DiceRoll(2, 3, 3, 3, 3)));
+        assertEquals(0, Yatzy1Category.THREES.score(new DiceRoll(2, 1, 4, 6, 5)));
     }
 
     @Test
     public void should_assert_fours() {
-        assertEquals(12, Yatzy1.fours(4, 4, 4, 5, 5));
-        assertEquals(8, Yatzy1.fours(4, 4, 5, 5, 5));
-        assertEquals(4, Yatzy1.fours(4, 5, 5, 5, 5));
-        assertEquals(0, Yatzy1.fours(2, 5, 5, 5, 5));
+        assertEquals(12, Yatzy1Category.FOURS.score(new DiceRoll(4, 4, 4, 5, 5)));
+        assertEquals(8, Yatzy1Category.FOURS.score(new DiceRoll(4, 4, 5, 5, 5)));
+        assertEquals(4, Yatzy1Category.FOURS.score(new DiceRoll(4, 5, 5, 5, 5)));
+        assertEquals(0, Yatzy1Category.FOURS.score(new DiceRoll(2, 5, 5, 5, 5)));
     }
 
     @Test
     public void should_assert_fives() {
-        assertEquals(10, Yatzy1.fives(4, 4, 4, 5, 5));
-        assertEquals(15, Yatzy1.fives(4, 4, 5, 5, 5));
-        assertEquals(20, Yatzy1.fives(4, 5, 5, 5, 5));
-        assertEquals(0, Yatzy1.fives(4, 1, 2, 3, 6));
+        assertEquals(10, Yatzy1Category.FIVES.score(new DiceRoll(4, 4, 4, 5, 5)));
+        assertEquals(15, Yatzy1Category.FIVES.score(new DiceRoll(4, 4, 5, 5, 5)));
+        assertEquals(20, Yatzy1Category.FIVES.score(new DiceRoll(4, 5, 5, 5, 5)));
+        assertEquals(0, Yatzy1Category.FIVES.score(new DiceRoll(4, 1, 2, 3, 6)));
     }
 
     @Test
     public void should_assert_sixes() {
-        assertEquals(0, Yatzy1.sixes(4, 4, 4, 5, 5));
-        assertEquals(6, Yatzy1.sixes(4, 4, 6, 5, 5));
-        assertEquals(18, Yatzy1.sixes(6, 5, 6, 6, 5));
+        assertEquals(0, Yatzy1Category.SIXES.score(new DiceRoll(4, 4, 4, 5, 5)));
+        assertEquals(6, Yatzy1Category.SIXES.score(new DiceRoll(4, 4, 6, 5, 5)));
+        assertEquals(18, Yatzy1Category.SIXES.score(new DiceRoll(6, 5, 6, 6, 5)));
     }
 
     @Test
