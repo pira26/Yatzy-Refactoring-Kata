@@ -1,6 +1,8 @@
 package org.codingdojo;
 
+import org.codingdojo.yatzy1.DiceRoll;
 import org.codingdojo.yatzy1.Yatzy1;
+import org.codingdojo.yatzy1.Yatzy1Category;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,11 +12,11 @@ public class Yatzy1Test {
 
     @Test
     public void should_assert_chance() {
-        assertEquals(15, Yatzy1.chance(2, 3, 4, 5, 1));
-        assertEquals(16, Yatzy1.chance(3, 3, 4, 5, 1));
-        assertEquals(14, Yatzy1.chance(1, 1, 3, 3, 6));
-        assertEquals(22, Yatzy1.chance(5, 5, 5, 6, 1));
-        assertEquals(25, Yatzy1.chance(5, 5, 5, 5, 5));
+        assertEquals(15, Yatzy1Category.CHANCE.score(new DiceRoll(2, 3, 4, 5, 1)));
+        assertEquals(16, Yatzy1Category.CHANCE.score(new DiceRoll(3, 3, 4, 5, 1)));
+        assertEquals(14, Yatzy1Category.CHANCE.score(new DiceRoll(1, 1, 3, 3, 6)));
+        assertEquals(22, Yatzy1Category.CHANCE.score(new DiceRoll(5, 5, 5, 6, 1)));
+        assertEquals(25, Yatzy1Category.CHANCE.score(new DiceRoll(5, 5, 5, 5, 5)));
     }
 
     @Test
@@ -36,6 +38,7 @@ public class Yatzy1Test {
     public void should_assert_twos() {
         assertEquals(4, Yatzy1.twos(1, 2, 3, 2, 6));
         assertEquals(10, Yatzy1.twos(2, 2, 2, 2, 2));
+        assertEquals(0, Yatzy1.twos(4, 5, 3, 1, 6));
     }
 
     @Test
