@@ -3,39 +3,42 @@ package org.codingdojo.yatzy1;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Collections.reverseOrder;
 import static java.util.List.of;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.reducing;
 
 public class DiceRoll {
-
-    private final List<Integer> dices;
+    private final List<Integer> DICES;
+    private final int ZERO = 0;
+    private final int YATZY = 50;
+    private final int PAIR = 2;
 
     public DiceRoll(int d1, int d2, int d3, int d4, int d5) {
-        this.dices = of(d1, d2, d3, d4, d5);
+        this.DICES = of(d1, d2, d3, d4, d5);
     }
 
     public int sum() {
-        return dices.stream().mapToInt(Integer::intValue).sum();
+        return DICES.stream().mapToInt(Integer::intValue).sum();
     }
 
     public Map<Integer, Integer> count() {
-        return dices.stream().collect(groupingBy(identity(), reducing(0, dice -> 1, Integer::sum)));
+        return DICES.stream().collect(groupingBy(identity(), reducing(0, dice -> 1, Integer::sum)));
     }
 
     public boolean isYatzy() {
-        return count().values().stream().allMatch(i -> i == 5);
+        return count().values().stream().allMatch(diceCount -> diceCount == 5);
     }
 
     public int yatzy() {
         if (isYatzy()) {
-            return 50;
+            return YATZY;
         }
-        return 0;
+        return ZERO;
     }
 
-    private Integer getValue(int key) {
+    private int getValue(int key) {
         return count().getOrDefault(key, 0);
     }
 
@@ -61,5 +64,30 @@ public class DiceRoll {
 
     public int sixes() {
         return getValue(6) * 6;
+    }
+
+    private List<Integer> retrievePairs() {
+        return count()
+            .entrySet().stream()
+            .filter(entry -> entry.getValue() >= PAIR)
+            .map(Map.Entry::getKey)
+            .sorted(reverseOrder())
+            .toList();
+    }
+
+    public int onePair() {
+        List<Integer> pair = retrievePairs();
+        if (!pair.isEmpty()) {
+            return pair.get(0) * 2;
+        }
+        return ZERO;
+    }
+
+    public int twoPair() {
+        List<Integer> pairs = retrievePairs();
+        if (pairs.size() >= PAIR) {
+            return pairs.stream().mapToInt(pair -> pair * 2).sum();
+        }
+        return ZERO;
     }
 }
