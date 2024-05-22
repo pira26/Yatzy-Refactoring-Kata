@@ -43,50 +43,50 @@ public class Yatzy1Test {
 
     @Test
     public void should_assert_fours() {
-        assertEquals(12, new Yatzy1(4, 4, 4, 5, 5).fours());
-        assertEquals(8, new Yatzy1(4, 4, 5, 5, 5).fours());
-        assertEquals(4, new Yatzy1(4, 5, 5, 5, 5).fours());
+        assertEquals(12, Yatzy1.fours(4, 4, 4, 5, 5));
+        assertEquals(8, Yatzy1.fours(4, 4, 5, 5, 5));
+        assertEquals(4, Yatzy1.fours(4, 5, 5, 5, 5));
     }
 
     @Test
     public void should_assert_fives() {
-        assertEquals(10, new Yatzy1(4, 4, 4, 5, 5).fives());
-        assertEquals(15, new Yatzy1(4, 4, 5, 5, 5).fives());
-        assertEquals(20, new Yatzy1(4, 5, 5, 5, 5).fives());
+        assertEquals(10, Yatzy1.fives(4, 4, 4, 5, 5));
+        assertEquals(15, Yatzy1.fives(4, 4, 5, 5, 5));
+        assertEquals(20, Yatzy1.fives(4, 5, 5, 5, 5));
     }
 
     @Test
     public void should_assert_sixes() {
-        assertEquals(0, new Yatzy1(4, 4, 4, 5, 5).sixes());
-        assertEquals(6, new Yatzy1(4, 4, 6, 5, 5).sixes());
-        assertEquals(18, new Yatzy1(6, 5, 6, 6, 5).sixes());
+        assertEquals(0, Yatzy1.sixes(4, 4, 4, 5, 5));
+        assertEquals(6, Yatzy1.sixes(4, 4, 6, 5, 5));
+        assertEquals(18, Yatzy1.sixes(6, 5, 6, 6, 5));
     }
 
     @Test
     public void should_assert_one_pair() {
-        assertEquals(6, new Yatzy1().score_pair(3, 4, 3, 5, 6));
-        assertEquals(10, new Yatzy1().score_pair(5, 3, 3, 3, 5));
-        assertEquals(12, new Yatzy1().score_pair(5, 3, 6, 6, 5));
+        assertEquals(6, Yatzy1.onePair(3, 4, 3, 5, 6));
+        assertEquals(10, Yatzy1.onePair(5, 3, 3, 3, 5));
+        assertEquals(12, Yatzy1.onePair(5, 3, 6, 6, 5));
     }
 
     @Test
     public void should_assert_two_pair() {
-        assertEquals(16, Yatzy1.two_pair(3, 3, 5, 4, 5));
-        assertEquals(16, Yatzy1.two_pair(3, 3, 5, 5, 5));
+        assertEquals(16, Yatzy1.twoPair(3, 3, 5, 4, 5));
+        assertEquals(16, Yatzy1.twoPair(3, 3, 5, 5, 5));
     }
 
     @Test
     public void should_assert_three_of_a_kind() {
-        assertEquals(9, Yatzy1.three_of_a_kind(3, 3, 3, 4, 5));
-        assertEquals(15, Yatzy1.three_of_a_kind(5, 3, 5, 4, 5));
-        assertEquals(9, Yatzy1.three_of_a_kind(3, 3, 3, 3, 5));
-        assertEquals(9, Yatzy1.three_of_a_kind(3, 3, 3, 3, 3));
+        assertEquals(9, Yatzy1.threeOfAKind(3, 3, 3, 4, 5));
+        assertEquals(15, Yatzy1.threeOfAKind(5, 3, 5, 4, 5));
+        assertEquals(9, Yatzy1.threeOfAKind(3, 3, 3, 3, 5));
+        assertEquals(9, Yatzy1.threeOfAKind(3, 3, 3, 3, 3));
     }
 
     @Test
     public void should_assert_four_of_a_knd() {
-        assertEquals(12, Yatzy1.four_of_a_kind(3, 3, 3, 3, 5));
-        assertEquals(20, Yatzy1.four_of_a_kind(5, 5, 5, 4, 5));
+        assertEquals(12, Yatzy1.fourOfAKind(3, 3, 3, 3, 5));
+        assertEquals(20, Yatzy1.fourOfAKind(5, 5, 5, 4, 5));
     }
 
     @Test
