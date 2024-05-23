@@ -33,27 +33,27 @@ public class DiceRoll {
     }
 
     public int ones() {
-        return getDiceCountValue(1);
+        return diceCountValue(1);
     }
 
     public int twos() {
-        return getDiceCountValue(2) * 2;
+        return diceCountValue(2) * 2;
     }
 
     public int threes() {
-        return getDiceCountValue(3) * 3;
+        return diceCountValue(3) * 3;
     }
 
     public int fours() {
-        return getDiceCountValue(4) * 4;
+        return diceCountValue(4) * 4;
     }
 
     public int fives() {
-        return getDiceCountValue(5) * 5;
+        return diceCountValue(5) * 5;
     }
 
     public int sixes() {
-        return getDiceCountValue(6) * 6;
+        return diceCountValue(6) * 6;
     }
 
     public int onePair() {
@@ -73,11 +73,11 @@ public class DiceRoll {
     }
 
     public int threeOfAKind() {
-        return getNOfAKind(3) * 3;
+        return retrieveNOfAKindValue(3) * 3;
     }
 
     public int fourOfAKind() {
-        return getNOfAKind(4) * 4;
+        return retrieveNOfAKindValue(4) * 4;
     }
 
     public int smallStraight() {
@@ -98,7 +98,7 @@ public class DiceRoll {
     }
 
     public int fullHouse() {
-        int threeOfAKindValue = getNOfAKind(3);
+        int threeOfAKindValue = retrieveNOfAKindValue(3);
         boolean isNotYatzy = !isYatzy();
         boolean hasAPair = !retrievePairs().isEmpty();
         boolean hasAThreeOfAKind = threeOfAKindValue != 0;
@@ -120,19 +120,19 @@ public class DiceRoll {
         return diceCount().values().stream().allMatch(count -> count == 5);
     }
 
-    private int getDiceCountValue(int key) {
+    private int diceCountValue(int key) {
         return diceCount().getOrDefault(key, 0);
     }
 
     private List<Integer> retrievePairs() {
-        return getDiceCountStream(PAIR).sorted(reverseOrder()).toList();
+        return diceCountStream(PAIR).sorted(reverseOrder()).toList();
     }
 
-    private int getNOfAKind(int number) {
-        return getDiceCountStream(number).findFirst().orElse(ZERO);
+    private int retrieveNOfAKindValue(int number) {
+        return diceCountStream(number).findFirst().orElse(ZERO);
     }
 
-    private Stream<Integer> getDiceCountStream(int number) {
+    private Stream<Integer> diceCountStream(int number) {
         return diceCount().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
     }
 
