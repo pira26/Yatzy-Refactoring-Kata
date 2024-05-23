@@ -14,12 +14,7 @@ import static java.util.stream.Collectors.reducing;
 public class DiceRoll {
     private final List<Integer> DICE;
     private final int ZERO = 0;
-    private final int YATZY = 50;
     private final int PAIR = 2;
-    private final List<Integer> SMALL_STRAIGHT_LIST = of(1, 2, 3, 4, 5);
-    private final int SMALL_STRAIGHT = 15;
-    private final List<Integer> LARGE_STRAIGHT_LIST = of(2, 3, 4, 5, 6);
-    private final int LARGE_STRAIGHT = 20;
 
     public DiceRoll(int d1, int d2, int d3, int d4, int d5) {
         this.DICE = of(d1, d2, d3, d4, d5);
@@ -30,6 +25,7 @@ public class DiceRoll {
     }
 
     public int yatzy() {
+        var YATZY = 50;
         if (isYatzy()) {
             return YATZY;
         }
@@ -85,6 +81,8 @@ public class DiceRoll {
     }
 
     public int smallStraight() {
+        var SMALL_STRAIGHT_LIST = of(1, 2, 3, 4, 5);
+        var SMALL_STRAIGHT = 15;
         if (Objects.equals(SMALL_STRAIGHT_LIST, sortDice())) {
             return SMALL_STRAIGHT;
         }
@@ -93,6 +91,8 @@ public class DiceRoll {
     }
 
     public int largeStraight() {
+        var LARGE_STRAIGHT_LIST = of(2, 3, 4, 5, 6);
+        var LARGE_STRAIGHT = 20;
         if (Objects.equals(LARGE_STRAIGHT_LIST, sortDice())) {
             return LARGE_STRAIGHT;
         }
