@@ -40,13 +40,13 @@ public class DiceRoll {
         return Arrays.equals(IntStream.of(DICE).sorted().toArray(), expected);
     }
 
+    private Stream<Integer> diceCountStream(int number) {
+        return diceCount().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
+    }
+
     private Map<Integer, Integer> diceCount() {
         return IntStream.of(DICE)
             .boxed()
             .collect(Collectors.groupingBy(Function.identity(), Collectors.summingInt(dice -> 1)));
-    }
-
-    private Stream<Integer> diceCountStream(int number) {
-        return diceCount().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
     }
 }

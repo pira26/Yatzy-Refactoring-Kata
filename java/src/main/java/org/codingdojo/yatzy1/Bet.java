@@ -2,43 +2,93 @@ package org.codingdojo.yatzy1;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 
 public enum Bet {
-    CHANCE(Bet::scoreChance),
-    YATZY(Bet::scoreYatzy),
-    ONES(Bet::scoreOnes),
-    TWOS(Bet::scoreTwos),
-    THREES(Bet::scoreThrees),
-    FOURS(Bet::scoreFours),
-    FIVES(Bet::scoreFives),
-    SIXES(Bet::scoreSixes),
-    ONE_PAIR(Bet::scoreOnePair),
-    TWO_PAIR(Bet::scoreTwoPair),
-    THREE_OF_A_KIND(Bet::scoreThreeOfAKind),
-    FOUR_OF_A_KIND(Bet::scoreFourOfAKind),
-    SMALL_STRAIGHT(Bet::scoreSmallStraight),
-    LARGE_STRAIGHT(Bet::scoreLargeStraight),
-    FULL_HOUSE(Bet::scoreFullHouse);
+    CHANCE {
+        public int score(DiceRoll roll) {
+            return Bet.scoreChance(roll);
+        }
+    },
+    YATZY {
+        public int score(DiceRoll roll) {
+            return Bet.scoreYatzy(roll);
+        }
+    },
+    ONES {
+        public int score(DiceRoll roll) {
+            return Bet.scoreOnes(roll);
+        }
+    },
+    TWOS {
+        public int score(DiceRoll roll) {
+            return Bet.scoreTwos(roll);
+        }
+    },
+    THREES {
+        public int score(DiceRoll roll) {
+            return Bet.scoreThrees(roll);
+        }
+    },
+    FOURS {
+        public int score(DiceRoll roll) {
+            return Bet.scoreFours(roll);
+        }
+    },
+    FIVES {
+        public int score(DiceRoll roll) {
+            return Bet.scoreFives(roll);
+        }
+    },
+    SIXES {
+        public int score(DiceRoll roll) {
+            return Bet.scoreSixes(roll);
+        }
+    },
+    ONE_PAIR {
+        public int score(DiceRoll roll) {
+            return Bet.scoreOnePair(roll);
+        }
+    },
+    TWO_PAIR {
+        public int score(DiceRoll roll) {
+            return Bet.scoreTwoPair(roll);
+        }
+    },
+    THREE_OF_A_KIND {
+        public int score(DiceRoll roll) {
+            return Bet.scoreThreeOfAKind(roll);
+        }
+    },
+    FOUR_OF_A_KIND {
+        public int score(DiceRoll roll) {
+            return Bet.scoreFourOfAKind(roll);
+        }
+    },
+    SMALL_STRAIGHT {
+        public int score(DiceRoll roll) {
+            return Bet.scoreSmallStraight(roll);
+        }
+    },
+    LARGE_STRAIGHT {
+        public int score(DiceRoll roll) {
+            return Bet.scoreLargeStraight(roll);
+        }
+    },
+    FULL_HOUSE {
+        public int score(DiceRoll roll) {
+            return Bet.scoreFullHouse(roll);
+        }
+    };
 
-    private final Function<DiceRoll, Integer> scoringFunction;
-
-    Bet(Function<DiceRoll, Integer> scoringFunction) {
-        this.scoringFunction = scoringFunction;
-    }
-
-    public int applyBet(DiceRoll diceRoll) {
-        return scoringFunction.apply(diceRoll);
-    }
+    public abstract int score(DiceRoll roll);
 
     private static int scoreChance(DiceRoll diceRoll) {
         return diceRoll.sum();
     }
 
     private static int scoreYatzy(DiceRoll diceRoll) {
-        var YATZY = 50;
         if (diceRoll.isYatzy()) {
-            return YATZY;
+            return 50;
         }
         return 0;
     }
@@ -109,10 +159,10 @@ public enum Bet {
     }
 
     private static int scoreFullHouse(DiceRoll diceRoll) {
-        var threeOfAKindValue = diceRoll.retrieveNOfAKindValue(3);
-        var isNotYatzy = !diceRoll.isYatzy();
         var hasAPair = !diceRoll.retrievePairs().isEmpty();
+        var threeOfAKindValue = diceRoll.retrieveNOfAKindValue(3);
         var hasAThreeOfAKind = threeOfAKindValue != 0;
+        var isNotYatzy = !diceRoll.isYatzy();
         if (hasAPair && hasAThreeOfAKind && isNotYatzy) {
             var arePairAndThreeOfAKindValuesDifferent = !Objects.equals(diceRoll.retrievePairs().get(0), threeOfAKindValue);
             if (arePairAndThreeOfAKindValuesDifferent) {
