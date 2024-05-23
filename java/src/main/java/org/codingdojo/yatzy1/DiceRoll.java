@@ -103,8 +103,8 @@ public class DiceRoll {
         boolean hasAPair = !retrievePairs().isEmpty();
         boolean hasAThreeOfAKind = threeOfAKindValue != 0;
         if (hasAPair && hasAThreeOfAKind && isNotYatzy) {
-            boolean isPairAndThreeOfAKindDifferent = !Objects.equals(retrievePairs().get(0), threeOfAKindValue);
-            if (isPairAndThreeOfAKindDifferent) {
+            boolean arePairAndThreeOfAKindValuesDifferent = !Objects.equals(retrievePairs().get(0), threeOfAKindValue);
+            if (arePairAndThreeOfAKindValuesDifferent) {
                 return sum();
             }
             return ZERO;
@@ -124,16 +124,16 @@ public class DiceRoll {
         return diceCount().getOrDefault(key, 0);
     }
 
-    private Stream<Integer> getDiceCountStream(int number) {
-        return diceCount().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
-    }
-
     private List<Integer> retrievePairs() {
         return getDiceCountStream(PAIR).sorted(reverseOrder()).toList();
     }
 
     private int getNOfAKind(int number) {
         return getDiceCountStream(number).findFirst().orElse(ZERO);
+    }
+
+    private Stream<Integer> getDiceCountStream(int number) {
+        return diceCount().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
     }
 
     private List<Integer> sortDice() {
