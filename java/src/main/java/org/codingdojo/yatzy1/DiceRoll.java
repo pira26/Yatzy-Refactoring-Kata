@@ -82,9 +82,8 @@ public class DiceRoll {
 
     public int smallStraight() {
         var SMALL_STRAIGHT_LIST = of(1, 2, 3, 4, 5);
-        var SMALL_STRAIGHT = 15;
         if (Objects.equals(SMALL_STRAIGHT_LIST, sortDice())) {
-            return SMALL_STRAIGHT;
+            return sum();
         }
 
         return ZERO;
@@ -92,9 +91,8 @@ public class DiceRoll {
 
     public int largeStraight() {
         var LARGE_STRAIGHT_LIST = of(2, 3, 4, 5, 6);
-        var LARGE_STRAIGHT = 20;
         if (Objects.equals(LARGE_STRAIGHT_LIST, sortDice())) {
-            return LARGE_STRAIGHT;
+            return sum();
         }
         return ZERO;
     }
