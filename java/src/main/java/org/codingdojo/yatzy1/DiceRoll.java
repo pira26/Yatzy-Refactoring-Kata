@@ -1,28 +1,20 @@
 package org.codingdojo.yatzy1;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.util.Collections.reverseOrder;
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.reducing;
-
 public class DiceRoll {
     private final int[] DICE;
-    private final int ZERO = 0;
-    private final int PAIR = 2;
 
-    public DiceRoll(int... arg) {
-        this.DICE = IntStream.of(arg).toArray();
+    public DiceRoll(int... args) {
+        this.DICE = IntStream.of(args).toArray();
     }
 
-    public int sum() {
-        return IntStream.of(DICE).sum();
+    public int chance() {
+        return sum();
     }
 
     public int yatzy() {
@@ -30,7 +22,7 @@ public class DiceRoll {
         if (isYatzy()) {
             return YATZY;
         }
-        return ZERO;
+        return 0;
     }
 
     public int ones() {
@@ -62,15 +54,15 @@ public class DiceRoll {
         if (!pair.isEmpty()) {
             return pair.get(0) * 2;
         }
-        return ZERO;
+        return 0;
     }
 
     public int twoPair() {
         List<Integer> pairs = retrievePairs();
-        if (pairs.size() >= PAIR) {
+        if (pairs.size() >= 2) {
             return pairs.stream().mapToInt(pair -> pair * 2).sum();
         }
-        return ZERO;
+        return 0;
     }
 
     public int threeOfAKind() {
@@ -87,7 +79,7 @@ public class DiceRoll {
             return sum();
         }
 
-        return ZERO;
+        return 0;
     }
 
     public int largeStraight() {
@@ -95,26 +87,26 @@ public class DiceRoll {
         if (isStraight(LARGE_STRAIGHT_LIST)) {
             return sum();
         }
-        return ZERO;
+        return 0;
     }
 
     public int fullHouse() {
-        int threeOfAKindValue = retrieveNOfAKindValue(3);
-        boolean isNotYatzy = !isYatzy();
-        boolean hasAPair = !retrievePairs().isEmpty();
-        boolean hasAThreeOfAKind = threeOfAKindValue != 0;
+        var threeOfAKindValue = retrieveNOfAKindValue(3);
+        var isNotYatzy = !isYatzy();
+        var hasAPair = !retrievePairs().isEmpty();
+        var hasAThreeOfAKind = threeOfAKindValue != 0;
         if (hasAPair && hasAThreeOfAKind && isNotYatzy) {
-            boolean arePairAndThreeOfAKindValuesDifferent = !Objects.equals(retrievePairs().get(0), threeOfAKindValue);
+            var arePairAndThreeOfAKindValuesDifferent = !Objects.equals(retrievePairs().get(0), threeOfAKindValue);
             if (arePairAndThreeOfAKindValuesDifferent) {
                 return sum();
             }
-            return ZERO;
+            return 0;
         }
-        return ZERO;
+        return 0;
     }
 
-    private Map<Integer, Integer> diceCount() {
-        return IntStream.of(DICE).boxed().collect(groupingBy(identity(), reducing(0, dice -> 1, Integer::sum)));
+    private int sum() {
+        return IntStream.of(DICE).sum();
     }
 
     private boolean isYatzy() {
@@ -126,15 +118,21 @@ public class DiceRoll {
     }
 
     private List<Integer> retrievePairs() {
-        return diceCountStream(PAIR).sorted(reverseOrder()).toList();
+        return diceCountStream(2).sorted(Collections.reverseOrder()).toList();
     }
 
     private int retrieveNOfAKindValue(int number) {
-        return diceCountStream(number).findFirst().orElse(ZERO);
+        return diceCountStream(number).findFirst().orElse(0);
     }
 
     private Stream<Integer> diceCountStream(int number) {
         return diceCount().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
+    }
+
+    private Map<Integer, Integer> diceCount() {
+        return IntStream.of(DICE)
+            .boxed()
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.summingInt(dice -> 1)));
     }
 
     private boolean isStraight(int[] expected) {
