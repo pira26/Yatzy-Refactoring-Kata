@@ -1,27 +1,28 @@
 package org.codingdojo.yatzy1;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.Collections.reverseOrder;
-import static java.util.List.of;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.reducing;
 
 public class DiceRoll {
-    private final List<Integer> DICE;
+    private final int[] DICE;
     private final int ZERO = 0;
     private final int PAIR = 2;
 
-    public DiceRoll(int d1, int d2, int d3, int d4, int d5) {
-        this.DICE = of(d1, d2, d3, d4, d5);
+    public DiceRoll(int... arg) {
+        this.DICE = IntStream.of(arg).toArray();
     }
 
     public int sum() {
-        return DICE.stream().mapToInt(Integer::intValue).sum();
+        return IntStream.of(DICE).sum();
     }
 
     public int yatzy() {
@@ -81,8 +82,8 @@ public class DiceRoll {
     }
 
     public int smallStraight() {
-        var SMALL_STRAIGHT_LIST = of(1, 2, 3, 4, 5);
-        if (Objects.equals(SMALL_STRAIGHT_LIST, sortDice())) {
+        var SMALL_STRAIGHT_LIST = new int[]{1, 2, 3, 4, 5};
+        if (isStraight(SMALL_STRAIGHT_LIST)) {
             return sum();
         }
 
@@ -90,8 +91,8 @@ public class DiceRoll {
     }
 
     public int largeStraight() {
-        var LARGE_STRAIGHT_LIST = of(2, 3, 4, 5, 6);
-        if (Objects.equals(LARGE_STRAIGHT_LIST, sortDice())) {
+        var LARGE_STRAIGHT_LIST = new int[]{2, 3, 4, 5, 6};
+        if (isStraight(LARGE_STRAIGHT_LIST)) {
             return sum();
         }
         return ZERO;
@@ -113,7 +114,7 @@ public class DiceRoll {
     }
 
     private Map<Integer, Integer> diceCount() {
-        return DICE.stream().collect(groupingBy(identity(), reducing(0, dice -> 1, Integer::sum)));
+        return IntStream.of(DICE).boxed().collect(groupingBy(identity(), reducing(0, dice -> 1, Integer::sum)));
     }
 
     private boolean isYatzy() {
@@ -136,7 +137,7 @@ public class DiceRoll {
         return diceCount().entrySet().stream().filter(entry -> entry.getValue() >= number).map(Map.Entry::getKey);
     }
 
-    private List<Integer> sortDice() {
-        return DICE.stream().sorted().toList();
+    private boolean isStraight(int[] expected) {
+        return Arrays.equals(IntStream.of(DICE).sorted().toArray(), expected);
     }
 }
