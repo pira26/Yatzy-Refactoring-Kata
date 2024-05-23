@@ -2,12 +2,41 @@ package org.codingdojo;
 
 import org.codingdojo.yatzy1.DiceRoll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.codingdojo.yatzy1.Bet.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class Yatzy1Test {
+
+    @Test
+    public void should_throw_exception_for_incorrect_dice_roll_count() {
+        IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> roll(3, 4, 5), "Invalid dice roll");
+
+        assertTrue(thrown.getMessage().contains("Invalid dice roll"));
+    }
+    private static Stream<int[]> invalidValues() {
+        return Stream.of(
+          new int[]{0, 1, 3, 4, 5},
+          new int[]{11, 1, 3, 4, 5}
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidValues")
+    public void should_throw_exception_for_incorrect_dice_values() {
+        IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> roll(0, 1, 3, 4, 5), "Invalid dice roll value");
+
+        assertTrue(thrown.getMessage().contains("Invalid dice roll value"));
+    }
 
     @Test
     public void should_score_by_summing_all_dice_for_chance_category() {

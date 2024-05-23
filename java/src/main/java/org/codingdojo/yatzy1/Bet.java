@@ -16,32 +16,32 @@ public enum Bet {
     },
     ONES {
         public int score(DiceRoll roll) {
-            return Bet.scoreOnes(roll);
+            return Bet.scoreNValue(roll, 1);
         }
     },
     TWOS {
         public int score(DiceRoll roll) {
-            return Bet.scoreTwos(roll);
+            return Bet.scoreNValue(roll, 2);
         }
     },
     THREES {
         public int score(DiceRoll roll) {
-            return Bet.scoreThrees(roll);
+            return Bet.scoreNValue(roll, 3);
         }
     },
     FOURS {
         public int score(DiceRoll roll) {
-            return Bet.scoreFours(roll);
+            return Bet.scoreNValue(roll, 4);
         }
     },
     FIVES {
         public int score(DiceRoll roll) {
-            return Bet.scoreFives(roll);
+            return Bet.scoreNValue(roll, 5);
         }
     },
     SIXES {
         public int score(DiceRoll roll) {
-            return Bet.scoreSixes(roll);
+            return Bet.scoreNValue(roll, 6);
         }
     },
     ONE_PAIR {
@@ -93,28 +93,8 @@ public enum Bet {
         return 0;
     }
 
-    private static int scoreOnes(DiceRoll diceRoll) {
-        return diceRoll.diceCountValue(1);
-    }
-
-    private static int scoreTwos(DiceRoll diceRoll) {
-        return diceRoll.diceCountValue(2) * 2;
-    }
-
-    private static int scoreThrees(DiceRoll diceRoll) {
-        return diceRoll.diceCountValue(3) * 3;
-    }
-
-    private static int scoreFours(DiceRoll diceRoll) {
-        return diceRoll.diceCountValue(4) * 4;
-    }
-
-    private static int scoreFives(DiceRoll diceRoll) {
-        return diceRoll.diceCountValue(5) * 5;
-    }
-
-    private static int scoreSixes(DiceRoll diceRoll) {
-        return diceRoll.diceCountValue(6) * 6;
+    private static int scoreNValue(DiceRoll diceRoll, int number) {
+        return diceRoll.diceCountValue(number) * number;
     }
 
     private static int scoreOnePair(DiceRoll diceRoll) {

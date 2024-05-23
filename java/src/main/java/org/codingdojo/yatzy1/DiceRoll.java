@@ -10,14 +10,20 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class DiceRoll {
-    private final int[] DICE;
+    private final int[] dice;
 
     public DiceRoll(int... args) {
-        this.DICE = IntStream.of(args).toArray();
+        if (IntStream.of(args).count() != 5) {
+            throw new IllegalArgumentException("Invalid dice roll size");
+        }
+        if (Arrays.stream(args).anyMatch(value->! List.of(1,2,3,4,5,6).contains(value))) {
+            throw new IllegalArgumentException("Invalid dice roll value");
+        }
+        this.dice = IntStream.of(args).toArray();
     }
 
     public int sum() {
-        return IntStream.of(DICE).sum();
+        return IntStream.of(dice).sum();
     }
 
     public boolean isYatzy() {
@@ -37,7 +43,7 @@ public class DiceRoll {
     }
 
     public boolean isStraight(int[] expected) {
-        return Arrays.equals(IntStream.of(DICE).sorted().toArray(), expected);
+        return Arrays.equals(IntStream.of(dice).sorted().toArray(), expected);
     }
 
     private Stream<Integer> diceCountStream(int number) {
@@ -45,7 +51,7 @@ public class DiceRoll {
     }
 
     private Map<Integer, Integer> diceCount() {
-        return IntStream.of(DICE)
+        return IntStream.of(dice)
             .boxed()
             .collect(Collectors.groupingBy(Function.identity(), Collectors.summingInt(dice -> 1)));
     }
