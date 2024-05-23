@@ -59,7 +59,7 @@ public class DiceRoll {
     public int onePair() {
         List<Integer> pair = retrievePairs();
         if (!pair.isEmpty()) {
-            return pair.getFirst() * 2;
+            return pair.get(0) * 2;
         }
         return ZERO;
     }
